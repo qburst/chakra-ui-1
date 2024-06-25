@@ -48,7 +48,7 @@ After:
 <Button colorPalette="blue">Click me</Button>
 ```
 
-Usage in any component, you can do somethine like:
+Usage in any component, you can do something like:
 
 ```tsx
 <Box colorPalette="red">
@@ -56,6 +56,57 @@ Usage in any component, you can do somethine like:
   <Text color="colorPalette.600">Some text</Text>
 </Box>
 ```
+
+Default theme color palette size has been increased to 11 shades to allow more
+color variations.
+
+Before:
+
+```tsx
+const colors = {
+  ...
+
+  gray: {
+    50: "#F7FAFC",
+    100: "#EDF2F7",
+    200: "#E2E8F0",
+    300: "#CBD5E0",
+    400: "#A0AEC0",
+    500: "#718096",
+    600: "#4A5568",
+    700: "#2D3748",
+    800: "#1A202C",
+    900: "#171923",
+  },
+
+  ...
+```
+
+After:
+
+```tsx
+const colors = {
+  ...
+
+  gray: {
+    50: { value: "#fafafa" },
+    100: { value: "#f4f4f5" },
+    200: { value: "#e4e4e7" },
+    300: { value: "#d4d4d8" },
+    400: { value: "#a1a1aa" },
+    500: { value: "#71717a" },
+    600: { value: "#52525b" },
+    700: { value: "#3f3f46" },
+    800: { value: "#27272a" },
+    900: { value: "#18181b" },
+    950: { value: "#09090b" },
+  },
+
+  ...
+```
+
+- Changed `noOfLines` prop to `lineClamp`
+- Changed `truncated` to `truncate`
 
 ### Changes to `Show` and `Hide`
 
@@ -200,9 +251,9 @@ Before:
 After:
 
 ```tsx
-<Avatar.Root name="Dan Abrahmov" src="https://bit.ly/dan-abramov">
-  <Avatar.Image />
-  <Avatar.Fallback />
+<Avatar.Root>
+  <Avatar.Image src="https://bit.ly/dan-abramov" />
+  <Avatar.Fallback>DA</Avatar.Fallback>
 </Avatar.Root>
 ```
 
@@ -388,29 +439,37 @@ However, you can still get back to the legacy API by creating a custom
 component.
 
 ```tsx
-import { Tooltip } from "@chakra-ui/react"
+import { Tooltip as ChakraTooltip, Portal } from "@chakra-ui/react"
+import { forwardRef } from "react"
 
-export type CustomTooltipProps = Tooltip.RootProps & {
-  label?: string
-  hasArrow?: boolean
+export interface TooltipProps extends ChakraTooltip.RootProps {
+  showArrow?: boolean
+  portalled?: boolean
+  label?: React.ReactNode
 }
 
-const CustomTooltip = (props: Props) => {
-  const { label, children, hasArrow, ...localProps } = props
-  const [rootProps, contentProps] = Tooltip.splitProps(localProps)
-
-  return (
-    <Tooltip.Root placement="bottom" {...rootProps}>
-      <Tooltip.Trigger asChild>
-        {isValidElement(children) ? children : <span>{children}</span>}
-      </Tooltip.Trigger>
-      <Tooltip.Content {...contentProps}>
-        {hasArrow && <Tooltip.Arrow />}
-        {label}
-      </Tooltip.Content>
-    </Tooltip.Root>
-  )
-}
+export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
+  function Tooltip(props, ref) {
+    const { showArrow, children, portalled, label, ...rest } = props
+    return (
+      <ChakraTooltip.Root {...rest}>
+        <ChakraTooltip.Trigger asChild>{children}</ChakraTooltip.Trigger>
+        <Portal disabled={!portalled}>
+          <ChakraTooltip.Positioner>
+            <ChakraTooltip.Content ref={ref}>
+              {showArrow && (
+                <ChakraTooltip.Arrow>
+                  <ChakraTooltip.ArrowTip />
+                </ChakraTooltip.Arrow>
+              )}
+              {label}
+            </ChakraTooltip.Content>
+          </ChakraTooltip.Positioner>
+        </Portal>
+      </ChakraTooltip.Root>
+    )
+  },
+)
 ```
 
 - Remove `closeOnMouseDown`, use `closeOnPointerDown` instead
@@ -673,6 +732,14 @@ the theme keys.
 - Renamed `Tfoot` to `Table.Footer`
 - Renamed `isNumeric` to `numeric`
 
+- Remove `numeric` from `TableColumnHeader` in favor of applying the
+  `text-align` css property directly.
+
+- Rename `TableOverflow` to `TableScrollArea`
+
+- Remove `placement` prop from `TableCaption` in favor of setting the
+  `caption-side` css property directly.
+
 ### Menu
 
 - Removed `rootProps` in favor of rendering the `Menu.Positioner` component
@@ -838,7 +905,7 @@ After:
 import { chakra, useRecipe } from "@chakra-ui/react"
 
 function Alert(props) {
-  const recipe = useRecipe("Alert", props.recipe)
+  const recipe = useRecipe("alert", props.recipe)
   const [variantProps, elementProps] = recipe.splitVariantProps(props)
   return <chakra.div {...elementProps} css={recipe(variantProps)} />
 }
@@ -868,7 +935,7 @@ After:
 import { chakra, useSlotRecipe } from "@chakra-ui/react"
 
 function Alert(props) {
-  const recipe = useSlotRecipe("Alert", props.recipe)
+  const recipe = useSlotRecipe("alert", props.recipe)
   const [variantProps, elementProps] = recipe.splitVariantProps(props)
   const styles = recipe(variantProps)
   return (
@@ -951,6 +1018,7 @@ and `withThemeByClassName` helper.
 - Remove `top-accent` and `left-accent` in favor adding `borderLeft` and
   `borderTop` directly to the `Alert` component
 - Added new outline variant
+- Rename `AlertIcon` to `AlertIndicator` for consistency
 
 ## Tabs
 
@@ -1234,8 +1302,8 @@ toast({
 
 - Rename `Collapse` to `Collapsible` namespace
 - Rename `in` to `open`
-- `animateOpacity` has been removed, use keyframes animations `collapse-in` and
-  `collapse-out` instead
+- `animateOpacity` has been removed, use keyframes animations `expand-height`
+  and `collapse-height` instead
 
 Before:
 
@@ -1249,16 +1317,35 @@ After:
 
 ```tsx
 <Collapsible.Root open={isOpen}>
-  <Collapsible.Content
-    overflow="hidden"
-    _open={{
-      animation: "collapse-in 250ms",
-    }}
-    _closed={{
-      animation: "collapse-out 250ms",
-    }}
-  >
-    Some content
-  </Collapsible.Content>
+  <Collapsible.Content>Some content</Collapsible.Content>
 </Collapsible.Root>
+```
+
+### Next.js Optimization
+
+If you notice an error similar to
+
+```sh
+[webpack.cache.PackFileCacheStrategy] Serializing big strings (140kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+```
+
+You can fix this by adding the following to your `next.config.js` file
+
+```js
+const nextConfig = {
+  experimental: {
+    optimizePackageImports: ["@chakra-ui/react"],
+  },
+}
+```
+
+If you're not getting autocompletions for style props for compound components,
+you can fix this by adding the following to your `tsconfig.json` file
+
+```json
+{
+  "compilerOptions": {
+    "moduleResolution": "Bundler"
+  }
+}
 ```

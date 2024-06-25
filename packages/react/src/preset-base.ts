@@ -15,7 +15,8 @@ const divideColor = createColorMixTransform("borderColor")
 
 export const defaultConditions = defineConditions({
   hover: "&:is(:hover, [data-hover]):not(:disabled, [data-disabled])",
-  active: "&:is(:active, [data-active]):not(:disabled, [data-disabled])",
+  active:
+    "&:is(:active, [data-active]):not(:disabled, [data-disabled], [data-state=open])",
   focus: "&:is(:focus, [data-focus])",
   focusWithin: "&:is(:focus-within, [data-focus-within])",
   focusVisible: "&:is(:focus-visible, [data-focus-visible])",
@@ -446,7 +447,10 @@ export const defaultBaseConfig = defineConfig({
         }
       },
     },
-    blur: { transform: (v) => ({ "--blur": wrap("blur", v) }) },
+    blur: {
+      values: "blurs",
+      transform: (v) => ({ "--blur": wrap("blur", v) }),
+    },
     brightness: {
       transform: (v) => ({ "--brightness": wrap("brightness", v) }),
     },
@@ -527,13 +531,49 @@ export const defaultBaseConfig = defineConfig({
       values: "colors",
       transform: createColorMixTransform("outlineColor"),
     },
+    focusRing: {
+      values: ["extend", "contain"],
+      transform(value: any, { token }: any) {
+        const focusRingColor = token("colors.border.emphasized")
+        const styles: Record<string, any> = {
+          contain: {
+            "--focus-ring-color": focusRingColor,
+            "&:where(:focus-visible, [data-focus])": {
+              outlineWidth: "1px",
+              outlineColor: "var(--focus-ring-color)",
+              outlineStyle: "solid",
+              borderColor: "var(--focus-ring-color)",
+            },
+          },
+          extend: {
+            "--focus-ring-color": focusRingColor,
+            "&:where(:focus-visible, [data-focus])": {
+              outlineWidth: "2px",
+              outlineOffset: "2px",
+              outlineColor: "var(--focus-ring-color)",
+              outlineStyle: "solid",
+            },
+          },
+        }
+
+        return styles[value]
+      },
+    },
+    focusRingColor: {
+      values: "colors",
+      transform: createColorMixTransform("--focus-ring-color"),
+    },
     // layout
     aspectRatio: { values: "aspectRatios" },
     width: { values: "sizes", shorthand: ["w"] },
     inlineSize: { values: "sizes" },
     height: { values: "sizes", shorthand: ["h"] },
     blockSize: { values: "sizes" },
-    boxSize: { values: "sizes", transform: (v) => ({ width: v, height: v }) },
+    boxSize: {
+      values: "sizes",
+      property: "width",
+      transform: (v) => ({ width: v, height: v }),
+    },
     minWidth: { values: "sizes", shorthand: ["minW"] },
     minInlineSize: { values: "sizes" },
     minHeight: { values: "sizes", shorthand: ["minH"] },
@@ -779,7 +819,7 @@ export const defaultBaseConfig = defineConfig({
     fontWeight: { values: "fontWeights" },
     lineHeight: { values: "lineHeights" },
     letterSpacing: { values: "letterSpacings" },
-    truncated: {
+    truncate: {
       values: { type: "boolean" },
       transform(value) {
         if (value === true) {
@@ -792,15 +832,18 @@ export const defaultBaseConfig = defineConfig({
         return {}
       },
     },
-    noOfLines: {
+    lineClamp: {
       transform(value) {
+        if (value === "none") {
+          return {
+            WebkitLineClamp: "unset",
+          }
+        }
         return {
-          display: "-webkit-box",
-          WebkitBoxOrient: "vertical",
-          WebkitLineClamp: "var(--line-clamp)",
-          "--line-clamp": value,
           overflow: "hidden",
-          textOverflow: "ellipsis",
+          display: "-webkit-box",
+          WebkitLineClamp: value,
+          WebkitBoxOrient: "vertical",
         }
       },
     },

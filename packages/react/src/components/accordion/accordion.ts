@@ -1,3 +1,5 @@
+"use client"
+
 import { Accordion as ArkAccordion } from "@ark-ui/react/accordion"
 import {
   type HTMLChakraProps,
@@ -12,15 +14,15 @@ const {
   withProvider,
   withContext,
   useStyles: useAccordionStyles,
-} = createStyleContext("Accordion")
+} = createStyleContext("accordion")
 
 export { useAccordionStyles }
 
 ////////////////////////////////////////////////////////////////////////////////////
 
 export interface AccordionRootProps
-  extends HTMLChakraProps<"div", ArkAccordion.RootProps>,
-    SlotRecipeProps<"Accordion">,
+  extends HTMLChakraProps<"div", ArkAccordion.RootBaseProps>,
+    SlotRecipeProps<"accordion">,
     UnstyledProp {}
 
 export const AccordionRoot = withProvider<HTMLDivElement, AccordionRootProps>(
@@ -32,7 +34,7 @@ export const AccordionRoot = withProvider<HTMLDivElement, AccordionRootProps>(
 ////////////////////////////////////////////////////////////////////////////////////
 
 export interface AccordionItemProps
-  extends HTMLChakraProps<"div", ArkAccordion.ItemProps> {}
+  extends HTMLChakraProps<"div", ArkAccordion.ItemBaseProps> {}
 
 export const AccordionItem = withContext<HTMLDivElement, AccordionItemProps>(
   ArkAccordion.Item,
@@ -43,7 +45,7 @@ export const AccordionItem = withContext<HTMLDivElement, AccordionItemProps>(
 ////////////////////////////////////////////////////////////////////////////////////
 
 export interface AccordionItemContentProps
-  extends HTMLChakraProps<"div", ArkAccordion.ItemContentProps> {}
+  extends HTMLChakraProps<"div", ArkAccordion.ItemContentBaseProps> {}
 
 export const AccordionItemContent = withContext<
   HTMLDivElement,
@@ -62,7 +64,7 @@ export const AccordionItemBody = withContext<
 ////////////////////////////////////////////////////////////////////////////////////
 
 export interface AccordionItemTriggerProps
-  extends HTMLChakraProps<"button", ArkAccordion.ItemTriggerProps> {}
+  extends HTMLChakraProps<"button", ArkAccordion.ItemTriggerBaseProps> {}
 
 export const AccordionItemTrigger = withContext<
   HTMLDivElement,
@@ -72,7 +74,7 @@ export const AccordionItemTrigger = withContext<
 ////////////////////////////////////////////////////////////////////////////////////
 
 export interface AccordionItemIndicatorProps
-  extends HTMLChakraProps<"button", ArkAccordion.ItemIndicatorProps> {}
+  extends HTMLChakraProps<"button", ArkAccordion.ItemIndicatorBaseProps> {}
 
 export const AccordionItemIndicator = withContext<
   HTMLDivElement,

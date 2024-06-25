@@ -1,13 +1,4 @@
-import {
-  Box,
-  Field,
-  For,
-  HStack,
-  Label,
-  Span,
-  Switch,
-  useSlotRecipe,
-} from "../src"
+import { Box, For, HStack, Span, Switch, useSlotRecipe } from "../src"
 import { colorPalettes } from "./shared/color-palettes"
 import { PlaygroundTable } from "./shared/playground-table"
 
@@ -19,16 +10,19 @@ export default {
 const DemoSwitch = (props: Switch.RootProps) => {
   return (
     <Switch.Root {...props}>
-      <Switch.Track>
+      <Switch.HiddenInput />
+      <Switch.Control>
         <Switch.Thumb />
-      </Switch.Track>
-      {props.children && <Switch.Label>{props.children}</Switch.Label>}
+      </Switch.Control>
+      {props.children && (
+        <Switch.Label fontWeight="medium">{props.children}</Switch.Label>
+      )}
     </Switch.Root>
   )
 }
 
 export const Variants = () => {
-  const recipe = useSlotRecipe("Switch")
+  const recipe = useSlotRecipe("switch")
   return (
     <PlaygroundTable>
       <thead>
@@ -67,7 +61,7 @@ export const Variants = () => {
 }
 
 export const Sizes = () => {
-  const recipe = useSlotRecipe("Switch")
+  const recipe = useSlotRecipe("switch")
   return (
     <PlaygroundTable>
       <thead>
@@ -112,10 +106,7 @@ export const Sizes = () => {
 }
 
 export const WithLabel = () => (
-  <Field id="email-alerts">
-    <HStack>
-      <DemoSwitch colorPalette="green" id="email-alerts" />
-      <Label htmlFor="email-alerts">Enable email alerts?</Label>
-    </HStack>
-  </Field>
+  <DemoSwitch colorPalette="green" id="email-alerts">
+    Enable email alerts?
+  </DemoSwitch>
 )

@@ -1,5 +1,141 @@
 # @chakra-ui/react
 
+## 3.0.0-next.8
+
+### Patch Changes
+
+- [`32a454d`](https://github.com/chakra-ui/chakra-ui/commit/32a454d0c2ffc67a9f09210d591f68b052e889e9)
+  Thanks [@segunadebayo](https://github.com/segunadebayo)! - Add missing
+  `use client` directives to several components
+
+- Updated dependencies []:
+  - @chakra-ui/hooks@3.0.0-next.8
+  - @chakra-ui/utils@3.0.0-next.8
+
+## 3.0.0-next.7
+
+### Minor Changes
+
+- [`4ff153f`](https://github.com/chakra-ui/chakra-ui/commit/4ff153fd9b449d3e43561b7daceaadfe3c925b08)
+  Thanks [@segunadebayo](https://github.com/segunadebayo)! - Speed up
+  intellisence for style props, and add support for `strictTokens` in the CLI.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @chakra-ui/hooks@3.0.0-next.7
+  - @chakra-ui/utils@3.0.0-next.7
+
+## 3.0.0-next.6
+
+### Minor Changes
+
+- [`925cfd9`](https://github.com/chakra-ui/chakra-ui/commit/925cfd99ce0a09c4145b81c17605e882c4aa1840)
+  Thanks [@segunadebayo](https://github.com/segunadebayo)! - Add ActionBar,
+  Status, Rating, Pagination components
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @chakra-ui/hooks@3.0.0-next.6
+  - @chakra-ui/utils@3.0.0-next.6
+
+## 3.0.0-next.5
+
+### Minor Changes
+
+- [`07b04b1`](https://github.com/chakra-ui/chakra-ui/commit/07b04b1c506995f6f276f5f80a93d09d89b92fce)
+  Thanks [@segunadebayo](https://github.com/segunadebayo)! - - **[NEW]:** Add
+  `RatingGroup`, `SegmentControl`
+
+  - **[NEW]:** Add `EmptyState` component for empty states
+  - **[NEW]:** Add `RadioCard` and `CheckboxCard` components for card-based
+    selection
+
+- [#8568](https://github.com/chakra-ui/chakra-ui/pull/8568)
+  [`5fd993b`](https://github.com/chakra-ui/chakra-ui/commit/5fd993bfbfd82f340646b3aa55fccc4d633834a7)
+  Thanks [@isBatak](https://github.com/isBatak)! - Add Collapsible recipe with
+  default open/close animation
+
+- [`43f2c7d`](https://github.com/chakra-ui/chakra-ui/commit/43f2c7d857c8fe3cab911891200fdc75d1aa782d)
+  Thanks [@segunadebayo](https://github.com/segunadebayo)! - - **CheckboxCard
+  [New]**
+
+  Add support for a new `CheckboxCard` component that can be used to render a
+  card with a checkbox.
+
+  ```jsx
+  <CheckboxCard.Root>
+    <CheckboxCard.Control>
+      <Stack gap="0" flex="1">
+        <CheckboxCard.Label>Checkbox</CheckboxCard.Label>
+        <Text>Some description</Text>
+      </Stack>
+
+      <CheckboxCard.HiddenInput />
+      <CheckboxCard.Indicator />
+    </CheckboxCard.Control>
+  </CheckboxCard.Root>
+  ```
+
+  - **Checkmark [New]**
+
+    Add new checkmark component for rendering a static checkmark icon with the
+    `checked`, `disabled`, and `indeterminate` state baked in.
+
+  ```jsx
+  <Stack>
+    <Checkmark />
+    <Checkmark checked />
+    <Checkmark indeterminate />
+    <Checkmark disabled />
+    <Checkmark checked disabled />
+    <Checkmark indeterminate disabled />
+  </Stack>
+  ```
+
+  - **EmptyState [New]**
+
+    Add new `EmptyState` component for rendering an empty state message with a
+    title, description, and optional action button.
+
+  ```jsx
+  <EmptyState.Root>
+    <EmptyState.Content>
+      <EmptyState.Indicator>
+        <HiTemplate />
+      </EmptyState.Indicator>
+
+      <VStack textAlign="center">
+        <Text fontWeight="medium">No template found</Text>
+        <Text fontSize="sm" color="fg.muted">
+          Try creating a new template with the button below
+        </Text>
+      </VStack>
+
+      <Button variant="outline">
+        <HiPlus /> Create Template
+      </Button>
+    </EmptyState.Content>
+  </EmptyState.Root>
+  ```
+
+- [#8575](https://github.com/chakra-ui/chakra-ui/pull/8575)
+  [`d4522d9`](https://github.com/chakra-ui/chakra-ui/commit/d4522d92bca44a79baa404340426b2783d283e2e)
+  Thanks [@isBatak](https://github.com/isBatak)! - Align theme recipe name with
+  panda
+
+- [#8569](https://github.com/chakra-ui/chakra-ui/pull/8569)
+  [`eb26857`](https://github.com/chakra-ui/chakra-ui/commit/eb2685735e25d6790d14d28653c792b9572c080e)
+  Thanks [@isBatak](https://github.com/isBatak)! - Fix the `boxSize` type to
+  allow number values.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @chakra-ui/hooks@3.0.0-next.5
+  - @chakra-ui/utils@3.0.0-next.5
+
 ## 3.0.0-next.4
 
 ### Minor Changes

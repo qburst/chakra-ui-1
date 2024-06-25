@@ -1,3 +1,5 @@
+"use client"
+
 import { Avatar as ArkAvatar } from "@ark-ui/react/avatar"
 import { forwardRef, useMemo } from "react"
 import {
@@ -15,7 +17,7 @@ const {
   withProvider,
   withContext,
   useStyles: useAvatarStyles,
-} = createStyleContext("Avatar")
+} = createStyleContext("avatar")
 
 export { useAvatarStyles }
 
@@ -23,7 +25,7 @@ export { useAvatarStyles }
 
 export interface AvatarRootProps
   extends HTMLChakraProps<"div", ArkAvatar.RootProps>,
-    SlotRecipeProps<"Avatar">,
+    SlotRecipeProps<"avatar">,
     UnstyledProp {}
 
 export const AvatarRoot = withProvider<HTMLDivElement, AvatarRootProps>(

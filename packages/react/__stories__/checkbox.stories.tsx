@@ -22,14 +22,17 @@ export default {
 const DemoCheckbox = (props: Checkbox.RootProps) => {
   return (
     <Checkbox.Root {...props}>
-      <Checkbox.Control />
+      <Checkbox.HiddenInput />
+      <Checkbox.Control>
+        <Checkbox.Indicator />
+      </Checkbox.Control>
       <Checkbox.Label>{props.children}</Checkbox.Label>
     </Checkbox.Root>
   )
 }
 
 export const Variants = () => {
-  const recipe = useSlotRecipe("Checkbox")
+  const recipe = useSlotRecipe("checkbox")
   return (
     <PlaygroundTable>
       <thead>
@@ -78,7 +81,7 @@ export const Variants = () => {
 }
 
 export const Sizes = () => {
-  const recipe = useSlotRecipe("Checkbox")
+  const recipe = useSlotRecipe("checkbox")
   return (
     <PlaygroundTable>
       <thead>
@@ -141,7 +144,7 @@ export const WithGroup = () => {
   return (
     <Checkbox.Group
       defaultValue={["one", "two"]}
-      onChange={(value) => console.log(value)}
+      onValueChange={(value) => console.log(value)}
     >
       <Stack align="start">
         <DemoCheckbox value="one">One</DemoCheckbox>
@@ -171,6 +174,19 @@ export const WithForm = () => {
       <Button alignSelf="flex-start" variant="solid" mt="3">
         Submit
       </Button>
+    </Stack>
+  )
+}
+
+export const WithIndeterminate = () => {
+  return (
+    <Stack>
+      <DemoCheckbox defaultChecked="indeterminate" variant="outline">
+        Indeterminate
+      </DemoCheckbox>
+      <DemoCheckbox defaultChecked="indeterminate" variant="subtle">
+        Indeterminate
+      </DemoCheckbox>
     </Stack>
   )
 }

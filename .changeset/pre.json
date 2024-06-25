@@ -11,21 +11,32 @@
     "@chakra-ui/react": "2.8.2",
     "@chakra-ui/utils": "2.0.15",
     "@chakra-ui/docs": "2.1.6",
+    "@chakra-ui/www": "0.1.0",
     "next-app": "2.0.14",
-    "next-pages": "2.0.14"
+    "next-pages": "2.0.14",
+    "remix-ts": "1.0.0"
   },
   "changesets": [
     "blue-masks-tell",
+    "chilly-flowers-build",
+    "clean-monkeys-travel",
     "curly-donkeys-glow",
     "curvy-zebras-fold",
     "few-paws-hammer",
     "fluffy-eggs-protect",
     "fuzzy-seas-itch",
+    "gentle-ravens-grab",
+    "lazy-beans-visit",
     "many-lamps-provide",
     "pretty-cougars-cough",
     "shiny-dogs-promise",
+    "spotty-students-deliver",
+    "swift-paws-move",
+    "tall-rings-cheer",
     "tasty-scissors-watch",
+    "tender-bugs-taste",
     "unlucky-apples-sing",
+    "wet-radios-float",
     "yellow-kings-exercise"
   ]
 }

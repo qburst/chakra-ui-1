@@ -4,6 +4,7 @@ import {
   Badge,
   Box,
   Button,
+  ErrorMessage,
   Field,
   For,
   Group,
@@ -31,7 +32,7 @@ export default {
 }
 
 export const Variants = () => {
-  const recipe = useRecipe("Input")
+  const recipe = useRecipe("input")
   return (
     <PlaygroundTable>
       <tbody>
@@ -65,7 +66,7 @@ export const Variants = () => {
 }
 
 export const Sizes = () => {
-  const recipe = useRecipe("Input")
+  const recipe = useRecipe("input")
   return (
     <PlaygroundTable>
       <tbody>
@@ -155,12 +156,19 @@ export const WithStates = () => (
   </Stack>
 )
 
-export const WithLabel = () => (
+export const WithFieldLabel = () => (
   <Field id="first-name" required>
     <Label>
       Amount <RequiredIndicator color="fg.error" />
     </Label>
     <Input placeholder="Enter amount" />
     <HelpText>Keep it very short and sweet!</HelpText>
+  </Field>
+)
+
+export const WithFieldInvalid = () => (
+  <Field id="first-name" invalid>
+    <Input placeholder="Enter amount" />
+    <ErrorMessage>Field is required</ErrorMessage>
   </Field>
 )

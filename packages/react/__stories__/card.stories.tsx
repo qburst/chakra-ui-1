@@ -28,7 +28,7 @@ export default {
 }
 
 export const Variants = () => {
-  const recipe = useSlotRecipe("Card")
+  const recipe = useSlotRecipe("card")
   return (
     <PlaygroundTable>
       <thead>
@@ -64,7 +64,7 @@ export const Variants = () => {
 }
 
 export const Sizes = () => {
-  const recipe = useSlotRecipe("Card")
+  const recipe = useSlotRecipe("card")
   return (
     <PlaygroundTable>
       <thead>
@@ -194,7 +194,7 @@ export const WithForm = () => (
         </Field>
       </Stack>
     </Card.Body>
-    <Card.Footer justify="flex-end" gap="4">
+    <Card.Footer justifyContent="flex-end" gap="4">
       <Button variant="outline">Cancel</Button>
       <Button variant="solid">Sign in</Button>
     </Card.Footer>

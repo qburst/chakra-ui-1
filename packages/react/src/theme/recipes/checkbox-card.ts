@@ -17,6 +17,7 @@ export const checkboxCardSlotRecipe = defineSlotRecipe({
         outlineOffset: "2px",
       },
       _disabled: {
+        opacity: 0.8,
         color: "fg.subtle",
         cursor: "not-allowed",
         borderColor: "border.disabled!",
@@ -25,16 +26,18 @@ export const checkboxCardSlotRecipe = defineSlotRecipe({
     control: {
       display: "inline-flex",
       flex: "1",
-      pos: "relative",
+      position: "relative",
       rounded: "inherit",
       justifyContent: "space-between",
-      alignItems: "center",
       _disabled: {
         bg: "bg.subtle!",
       },
     },
     label: {
       fontWeight: "medium",
+      display: "flex",
+      alignItems: "center",
+      gap: "2",
       _disabled: {
         color: "fg.subtle!",
       },
@@ -106,13 +109,14 @@ export const checkboxCardSlotRecipe = defineSlotRecipe({
         },
         indicator: checkmarkRecipe.variants?.variant.outline,
       },
+
       subtle: {
         root: {
           bg: "bg",
           _checked: {
             borderColor: {
               base: "colorPalette.300",
-              _dark: "colorPalette.600/60",
+              _dark: "colorPalette.300/40",
             },
           },
         },
@@ -139,7 +143,7 @@ export const checkboxCardSlotRecipe = defineSlotRecipe({
       colorPalette: "gray",
       css: {
         indicator: {
-          color: "fg.inverse",
+          color: "fg.inverted",
           "&:is([data-checked], [data-indeterminate])": {
             bg: { base: "gray.800", _dark: "gray.200" },
             borderColor: { base: "gray.800", _dark: "gray.200" },
@@ -151,7 +155,7 @@ export const checkboxCardSlotRecipe = defineSlotRecipe({
 
   defaultVariants: {
     size: "md",
-    variant: "plain",
+    variant: "subtle",
     colorPalette: "gray",
   },
 })
